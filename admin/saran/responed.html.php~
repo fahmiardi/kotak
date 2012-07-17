@@ -1,0 +1,76 @@
+<?php include_once $_SERVER['DOCUMENT_ROOT'].'/include/helper.inc.php'; ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>ADMIN :: Daftar Respon Saran</title>
+	<style type="text/css">
+		textarea {
+			display: block;
+		}
+		.fix {
+			width:100%;
+		}
+		.red {
+			color: red;
+		}
+	</style>
+</head>
+<body>
+	<p>MENU UTAMA: <a href=".">Manage Saran</a> | <a href="../kategori">Manage Kategori</a> | <a href="../user">Manage User</a> | <a href="../region">Manage Kota</a></p>
+	<p><a href=".">List Saran</a> | <a href="?responed">List Respon</a> | <a href="?trashed">Trash</a></p>
+	<div>
+		<table border="0" width="100%" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>No.</td>
+				<td>Saran</td>
+				<td>Published</td>
+				<td>Status Sending</td>
+				<td>Actions</td>	
+			</tr>
+			<?php $no=1; ?>
+			<?php foreach ($saran as $_saran): ?>
+			<form action="" method="post">
+				<input type="hidden" name="id" value="<?php echo $_saran['id']; ?>">
+				<tr bgcolor="<?php echo ($_saran['idx']) ? '#DDD' : '#CCC' ;  ?>">
+					<td><span><?php echo $no; ?>.</span>
+					<td>
+						<div><span>Perihal: <?php htmlout($_saran['perihal']); ?></span></div>
+						<div><span><?php htmlout($_saran['saran']); ?></span></div>
+						<div><span>By. <?php htmlout($_saran['nama']); ?>, <?php htmlout($_saran['kota']); ?> - <?php htmlout($_saran['propinsi']); ?></span></div>
+						<div><span>email: <?php htmlout($_saran['email']); ?></span></div>
+						<div><span>at <?php changeDate($_saran['date']); ?></span></div>
+						<div>
+							<div><label for="respon">Isi Respon</label></div>
+							<div><span><?php htmlout($_saran['respon']); ?></span></div>			
+						</div>
+						<div><span>Responed by. <?php htmlout($_saran['responBy']); ?></span></div>
+						<div><span>at <?php changeDate($_saran['responDate']); ?></span></div>
+					</td>
+					<td>
+						<?php if($_saran['published']) : ?>
+							<input type="submit" name="action" value="Unpublish">
+						<?php else : ?>
+							<input type="submit" name="action" value="Publish">
+						<?php endif; ?>
+					</td>
+					<td>
+						<?php if($_saran['mark'] == "nosend") : ?>
+							<div><span>Not send to Email</span></div>
+							<div><input type="submit" name="action" value="Send Now"></div>
+						<?php elseif($_saran['mark'] == "failedsend") : ?>
+							<div><span>Failed send to Email</span></div>
+							<div><input type="submit" name="action" value="Send Again"></div>
+						<?php elseif($_saran['mark'] == "sent") : ?>
+							<div><span>Sent to Email</span></div>
+						<?php endif; ?>
+					</td>
+					<td><input type="submit" name="action" value="Edit"></td>
+				</tr>
+			</form>
+			<?php $no++; ?>
+			<?php endforeach; ?>
+		</table>	
+	</div>
+</body>
+</html>

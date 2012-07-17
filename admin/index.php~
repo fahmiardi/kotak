@@ -1,0 +1,4 @@
+<?php
+	//load default modul
+	include './saran/index.php';
+?>

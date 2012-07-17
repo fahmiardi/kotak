@@ -1,0 +1,78 @@
+<?php include_once $_SERVER['DOCUMENT_ROOT'].'/include/helper.inc.php'; ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Kirim Saran</title>
+	<style type="text/css">
+		textarea, input, select {
+			display: block;
+		}
+		.fix {
+			width:100%;
+		}
+		.red {
+			color: red;
+		}
+	</style>
+</head>
+<body>
+	<p><a href=".">Tulis Saran</a> | <a href="">List Saran</a></p>
+	<form action="?" method="post">
+		<div><?php isset($error) ? htmlout($error, FALSE) : ''; ?></div>
+		<div>
+			<label for="namaLengkap">Nama Lengkap</label>&nbsp;<span class="red">*</span>
+			<input type="text" name="namaLengkap" value="<?php isset($namaLengkap) ? htmlout($namaLengkap) : ''; ?>">
+			
+			<label for="profesi">Profesi</label>
+			<input type="text" name="profesi" value="<?php isset($profesi) ? htmlout($profesi) : ''; ?>">
+			
+			<label for="instansi">Instansi</label>
+			<input type="text" name="instansi" value="<?php isset($instansi) ? htmlout($instansi) : ''; ?>">
+			
+			<label for="alamat">Alamat</label>
+			<textarea id="alamat" name="alamat" rows="7" cols="40"><?php isset($alamat) ? htmlout($alamat) : ''; ?></textarea>
+			
+			<label for="Propinsi">Propinsi</label>&nbsp;<span class="red">*</span>
+			<select name="propinsi" onchange="this.form.submit();">
+				<option value="0">--propinsi--</value>
+				<?php foreach($propinsi as $prop): ?>
+					<option value="<?php echo $prop['id']; ?>" <?php isset($_propinsi) ? ($prop['id']==$_propinsi) ? htmlout('selected') : '' : ''; ?>><?php htmlout($prop['propinsi']); ?></option>
+				<?php endforeach; ?>
+			</select>
+			
+			<label for="Kota">Kota</label>&nbsp;<span class="red">*</span>
+			<select name="kota">
+				<option value="0">--kota--</value>
+				<?php foreach($kota as $kot): ?>
+					<option value="<?php echo $kot['id']; ?>" <?php isset($_kota) ? ($kot['id']==$_kota) ? htmlout('selected') : '' : ''; ?>><?php htmlout($kot['kota']); ?></option>
+				<?php endforeach; ?>
+			</select>
+			
+			<label for="Telp/HP">Telp/HP</label>
+			<input type="text" name="phone" value="<?php isset($phone) ? htmlout($phone) : ''; ?>">
+			
+			<label for="Fax">Fax</label>
+			<input type="text" name="fax" value="<?php isset($fax) ? htmlout($fax) : ''; ?>">
+			
+			<label for="E-Mail">E-Mail</label>&nbsp;<span class="red">*</span>
+			<input type="text" name="email" value="<?php isset($email) ? htmlout($email) : ''; ?>">
+			
+			<label for="Perihal">Perihal</label>&nbsp;<span class="red">*</span>
+			<input type="text" name="perihal" value="<?php isset($perihal) ? htmlout($perihal) : ''; ?>">
+			
+			<label for="Kategori">Kategori</label>&nbsp;<span class="red">*</span>
+			<select name="kategori">
+				<option value="0">--kategori--</value>
+				<?php foreach($kategori as $kat): ?>
+					<option value="<?php echo $kat['id']; ?>" <?php isset($_kategori) ? ($kat['id']==$_kategori) ? htmlout('selected') : '' : ''; ?>><?php echo $kat['kategori']; ?></option>
+				<?php endforeach; ?>
+			</select>
+			
+			<label for="joketext">Isi Saran</label>&nbsp;<span class="red">*</span>
+			<textarea id="isiSaran" name="isiSaran" rows="7" cols="40" class="fix"><?php isset($isiSaran) ? htmlout($isiSaran) : ''; ?></textarea>
+		</div>
+		<div><input type="submit" name="kirim" value="Kirim"></div>
+	</form>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<?php include_once $_SERVER['DOCUMENT_ROOT'].'/include/helper.inc.php'; ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>ADMIN :: Form Respon Saran</title>
+	<style type="text/css">
+		textarea {
+			display: block;
+		}
+		.fix {
+			width:100%;
+		}
+		.red {
+			color: red;
+		}
+	</style>
+</head>
+<body>
+	<p>MENU UTAMA: <a href=".">Manage Saran</a> | <a href="../kategori">Manage Kategori</a> | <a href="../user">Manage User</a> | <a href="../region">Manage Kota</a></p>
+	<p><a href=".">List Saran</a> | <a href="?responed">List Respon</a> | <a href="?trashed">Trash</a></p>
+	<div>
+		<?php if(isset($error)) : ?>
+			<?php foreach ($error as $err) : ?>
+				<div><?php echo $err; ?></div>	
+			<?php endforeach; ?>
+		<?php endif; ?>
+	</div>
+	<div>
+		<?php foreach ($saran as $_saran): ?>
+		<form action="" method="post">
+			<div><span>Perihal: <?php htmlout($_saran['perihal']); ?></span></div>
+			<div><span><?php htmlout($_saran['saran']); ?></span></div>
+			<div><span>By. <?php htmlout($_saran['nama']); ?>, <?php htmlout($_saran['kota']); ?> - <?php htmlout($_saran['propinsi']); ?></span></div>
+			<div><span>email: <?php htmlout($_saran['email']); ?></span></div>
+			<div><span>at <?php changeDate($_saran['date']); ?></span></div>
+			<div>
+				<div><label for="respon">Isi Respon</label>&nbsp;<span class="red">*</span></div>
+				<div><textarea name="respon" class="fix"><?php echo isset($isiRespon) ? htmlout($isiRespon) : ''; ?></textarea></div>			
+			</div>
+			<div><span>Pilih salah satu atau dua-duanya:</span></div>
+			<div><input type="checkbox" name="published" value="TRUE" <?php echo (isset($_publish) && $_publish !='') ? 'checked' :''; ?>>Publish</div>
+			<div><input type="checkbox" name="sent" value="TRUE" <?php echo (isset($_sent) && $_sent !='') ? 'checked' : ''; ?>>Send to Email</div>
+			<div>
+				<input type="hidden" name="id" value="<?php echo $_saran['id']; ?>">
+				<input type="submit" name="action" value="Kirim Respon">
+			</div>
+		</form>
+		<?php endforeach; ?>
+	</div>
+</body>
+</html>

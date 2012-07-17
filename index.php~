@@ -1,0 +1,4 @@
+<?php	
+	//load default module
+	include $_SERVER['DOCUMENT_ROOT'].'/saran/index.php';
+?>

@@ -1,0 +1,42 @@
+<?php include_once $_SERVER['DOCUMENT_ROOT'].'/include/helper.inc.php'; ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>ADMIN :: Respon Saran</title>
+	<style type="text/css">
+		textarea {
+			display: block;
+		}
+		.fix {
+			width:100%;
+		}
+		.red {
+			color: red;
+		}
+	</style>
+</head>
+<body>
+	<div>
+		<?php foreach ($saran as $_saran): ?>
+		<form action="" method="post">
+			<div><span>Perihal: <?php htmlout($_saran['perihal']); ?></span></div>
+			<div><span><?php htmlout($_saran['saran']); ?></span></div>
+			<div><span>By. <?php htmlout($_saran['nama']); ?>, <?php htmlout($_saran['kota']); ?> - <?php htmlout($_saran['propinsi']); ?></span></div>
+			<div><span>email: <?php htmlout($_saran['email']); ?></span></div>
+			<div><span>at <?php htmlout($_saran['date']); ?></span></div>
+			<div>
+				<div><label for="respon">Isi Respon</label></div>
+				<div><textarea name="respon" class="fix"><?php htmlout($_saran['respon']); ?></textarea></div>			
+			</div>
+			<div><input type="checkbox" name="published" value="TRUE">Publish</div>
+			<div><input type="checkbox" name="sent" value="TRUE">Send to Email</div>
+			<div>
+				<input type="hidden" name="id" value="<?php echo $_saran['id']; ?>">
+				<input type="submit" name="action" value="Kirim Respon">
+			</div>
+		</form>
+		<?php endforeach; ?>
+	</div>
+</body>
+</html>
